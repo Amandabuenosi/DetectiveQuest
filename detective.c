@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// -----------------------------------------------------------
-// Estrutura da sala (nó da árvore binária)
-// -----------------------------------------------------------
+// sala (nó da árvore binária)
 typedef struct Sala {
     char nome[50];
     char pista[100];
@@ -12,18 +10,14 @@ typedef struct Sala {
     struct Sala *direita;
 } Sala;
 
-// -----------------------------------------------------------
-// Estrutura da árvore de pistas (BST)
-// -----------------------------------------------------------
+// árvore de pistas (BST)
 typedef struct PistaNode {
     char pista[100];
     struct PistaNode *esquerda;
     struct PistaNode *direita;
 } PistaNode;
 
-// -----------------------------------------------------------
-// Cria dinamicamente uma sala com nome e pista
-// -----------------------------------------------------------
+// Cria dinamicamente umc comodo com nome e pista
 Sala* criarSala(const char *nome, const char *pista) {
     Sala *nova = (Sala*) malloc(sizeof(Sala));
     if (nova == NULL) {
@@ -37,9 +31,7 @@ Sala* criarSala(const char *nome, const char *pista) {
     return nova;
 }
 
-// -----------------------------------------------------------
-// Insere uma pista na árvore BST em ordem alfabética
-// -----------------------------------------------------------
+// Pista na árvore BST em ordem alfabética
 PistaNode* inserirPista(PistaNode *raiz, const char *pista) {
     if (raiz == NULL) {
         PistaNode *nova = (PistaNode*) malloc(sizeof(PistaNode));
@@ -57,9 +49,7 @@ PistaNode* inserirPista(PistaNode *raiz, const char *pista) {
     return raiz;
 }
 
-// -----------------------------------------------------------
-// Exibe as pistas coletadas em ordem alfabética (in-order)
-// -----------------------------------------------------------
+// pistas coletadas em ordem alfabética (in-order)
 void exibirPistas(PistaNode *raiz) {
     if (raiz != NULL) {
         exibirPistas(raiz->esquerda);
@@ -68,16 +58,14 @@ void exibirPistas(PistaNode *raiz) {
     }
 }
 
-// -----------------------------------------------------------
-// Explora a mansão, permitindo o jogador navegar e coletar pistas
-// -----------------------------------------------------------
+// Explora a mansão e coletar pistas
 void explorarSalasComPistas(Sala *atual, PistaNode **raizPistas) {
     if (atual == NULL) return;
 
     printf("\nVocê está em: %s\n", atual->nome);
 
     if (strlen(atual->pista) > 0) {
-        printf("🔍 Você encontrou uma pista: \"%s\"\n", atual->pista);
+        printf("Você encontrou uma pista: \"%s\"\n", atual->pista);
         *raizPistas = inserirPista(*raizPistas, atual->pista);
     } else {
         printf("Nenhuma pista encontrada aqui.\n");
@@ -91,27 +79,25 @@ void explorarSalasComPistas(Sala *atual, PistaNode **raizPistas) {
         if (atual->esquerda != NULL)
             explorarSalasComPistas(atual->esquerda, raizPistas);
         else
-            printf("🚪 Não há caminho à esquerda!\n");
+            printf("Não há caminho à esquerda!\n");
     } 
     else if (escolha == 'd' || escolha == 'D') {
         if (atual->direita != NULL)
             explorarSalasComPistas(atual->direita, raizPistas);
         else
-            printf("🚪 Não há caminho à direita!\n");
+            printf("Não há caminho à direita!\n");
     } 
     else if (escolha == 's' || escolha == 'S') {
-        printf("🕵️ Encerrando exploração...\n");
+        printf("Encerrando exploração...\n");
         return;
     } 
     else {
-        printf("⚠️ Opção inválida! Tente novamente.\n");
+        printf("Opção inválida! Tente novamente.\n");
         explorarSalasComPistas(atual, raizPistas);
     }
 }
 
-// -----------------------------------------------------------
 // Exibe o menu principal
-// -----------------------------------------------------------
 void menu() {
     printf("\n==============================\n");
     printf(" 🔎 DETECTIVE QUEST - MENU\n");
@@ -123,9 +109,7 @@ void menu() {
     printf("Escolha uma opção: ");
 }
 
-// -----------------------------------------------------------
 // Função principal
-// -----------------------------------------------------------
 int main() {
     // Criação das salas (árvore binária fixa)
     Sala *hall = criarSala("Hall de Entrada", "Um lenço com as iniciais 'M.K.'");
@@ -148,7 +132,7 @@ int main() {
     int opcao;
 
     printf("=====================================\n");
-    printf("🕵️‍♀️ DETECTIVE QUEST: COLETA DE PISTAS\n");
+    printf("DETECTIVE QUEST: COLETA DE PISTAS\n");
     printf("=====================================\n");
     printf("Bem-vindo, detetive! Explore a mansão e descubra o mistério!\n");
 
@@ -172,7 +156,7 @@ int main() {
                 printf("\nEncerrando o jogo... Até a próxima, detetive!\n");
                 break;
             default:
-                printf("\n⚠️ Opção inválida! Escolha novamente.\n");
+                printf("\nOpção inválida! Escolha novamente.\n");
         }
 
     } while (opcao != 0);
